@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            let emp=[{
+        emp_name:"kumar",
+        emp_id:123,
+        salary:50000,
+        skills:["java","python","javascript"],
+    },
+    {
+        emp_name:"sneha",
+        emp_id:124,
+        salary:60000,
+        company:{
+            c1:"TCS",
+            c2:"Infosys"
+        }
+    }]
+    console.log(emp.emp_name);
+    let stringify_data = JSON.stringify(emp);
+    console.log(stringify_data);
+    let parsed_data = JSON.parse(stringify_data);
+    console.log(parsed_data);
+    let copied_data={...emp};
+    copied_data.salary=80000;
+    console.log(emp.salary);
+    console.log("Copied data salary: "+copied_data.salary);
+    console.log("Original data salary: "+emp[0].salary);
+    let copied_data1=JSON.parse(JSON.stringify(emp));
+    copied_data1[1].company.c1="Wipro";
+    console.log("Copied data company: "+copied_data1[1].company.c1);
+    console.log("Original data company: "+emp[1].company.c1);
+    
+
+        </script>
+
+        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  (async () => {
+    try {
+      const response = await fetch(request.url);
+      const data = await response.json();
+      sendResponse(data);
+    } catch (err) {
+      sendResponse({ error: err.message });
+    }
+  })();
+  
+  return true; // Keep channel open
+});
+
+
+    </body>
+    </html>
